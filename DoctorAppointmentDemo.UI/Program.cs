@@ -7,10 +7,14 @@ namespace DoctorAppointmentDemo
     public class DoctorAppointment
     {
         private readonly IDoctorService _doctorService;
+        private readonly IAppointmentService _appointmentService;
+        private readonly IPatientService _patientService;
 
         public DoctorAppointment()
         {
             _doctorService = new DoctorService();
+            _appointmentService = new AppointmentService();
+            _patientService = new PatientService();
         }
 
         public void Menu()
