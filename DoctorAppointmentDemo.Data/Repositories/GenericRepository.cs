@@ -70,6 +70,15 @@ namespace MyDoctorAppointment.Data.Repositories
 
         protected abstract void SaveLastId();
 
-        protected AppDbConfig ReadFromAppSettings() => JsonConvert.DeserializeObject<AppDbConfig>(File.ReadAllText(Constants.AppSettingsPath))!;
+        protected AppDbConfig ReadFromAppSettings()
+        {
+            AppDbConfig appDbConfig = JsonConvert.DeserializeObject<AppDbConfig>(File.ReadAllText(Constants.AppSettingsPath))!;
+
+            appDbConfig.Database.Doctors.Path = System.IO.Path.Combine(Constants.PrjData, appDbConfig.Database.Doctors.Path);
+            appDbConfig.Database.Patients.Path = System.IO.Path.Combine(Constants.PrjData, appDbConfig.Database.Patients.Path);
+            appDbConfig.Database.Appointments.Path = System.IO.Path.Combine(Constants.PrjData, appDbConfig.Database.Appointments.Path);
+
+            return appDbConfig;
+        }
     }
 }
