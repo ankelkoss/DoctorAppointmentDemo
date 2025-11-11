@@ -74,9 +74,25 @@ namespace MyDoctorAppointment.Data.Repositories
         {
             AppDbConfig appDbConfig = JsonConvert.DeserializeObject<AppDbConfig>(File.ReadAllText(Constants.AppSettingsPath))!;
 
+            appDbConfig = AddGlobalPathAppSettings(appDbConfig);
+
+            return appDbConfig;
+        }
+
+        protected AppDbConfig AddGlobalPathAppSettings(AppDbConfig appDbConfig)
+        {
             appDbConfig.Database.Doctors.Path = System.IO.Path.Combine(Constants.PrjData, appDbConfig.Database.Doctors.Path);
             appDbConfig.Database.Patients.Path = System.IO.Path.Combine(Constants.PrjData, appDbConfig.Database.Patients.Path);
             appDbConfig.Database.Appointments.Path = System.IO.Path.Combine(Constants.PrjData, appDbConfig.Database.Appointments.Path);
+
+            return appDbConfig;
+        }
+
+        protected AppDbConfig MoveGlobalPathAppSettings(AppDbConfig appDbConfig)
+        {
+            appDbConfig.Database.Doctors.Path = System.IO.Path.GetRelativePath(Constants.PrjData, appDbConfig.Database.Doctors.Path);
+            appDbConfig.Database.Patients.Path = System.IO.Path.GetRelativePath(Constants.PrjData, appDbConfig.Database.Patients.Path);
+            appDbConfig.Database.Appointments.Path = System.IO.Path.GetRelativePath(Constants.PrjData, appDbConfig.Database.Appointments.Path);
 
             return appDbConfig;
         }
