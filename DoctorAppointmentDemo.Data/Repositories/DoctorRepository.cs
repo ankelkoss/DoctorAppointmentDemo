@@ -28,6 +28,9 @@ namespace MyDoctorAppointment.Data.Repositories
         protected override void SaveLastId()
         {
             AppDbConfig result = base.ReadFromAppSettings();
+
+            result = base.MoveGlobalPathAppSettings(result);
+
             result.Database.Doctors.LastId = LastId;
 
             File.WriteAllText(Constants.AppSettingsPath, JsonConvert.SerializeObject(result, Formatting.Indented));
