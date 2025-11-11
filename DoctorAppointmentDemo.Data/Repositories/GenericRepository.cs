@@ -1,6 +1,6 @@
-﻿using DoctorAppointmentDemo.Domain.DbConfig;
+﻿using DoctorAppointmentDemo.Data.Interfaces.Base;
+using DoctorAppointmentDemo.Domain.DbConfig;
 using MyDoctorAppointment.Data.Configuration;
-using MyDoctorAppointment.Data.Interfaces;
 using MyDoctorAppointment.Domain.Entities;
 using Newtonsoft.Json;
 
