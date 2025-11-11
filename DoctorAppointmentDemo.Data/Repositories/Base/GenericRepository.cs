@@ -4,7 +4,7 @@ using DoctorAppointmentDemo.Domain.DbConfig;
 using DoctorAppointmentDemo.Domain.Entities;
 using Newtonsoft.Json;
 
-namespace DoctorAppointmentDemo.Data.Repositories
+namespace DoctorAppointmentDemo.Data.Repositories.Base
 {
     public abstract class GenericRepository<TSource> : IGenericRepository<TSource> where TSource : Auditable
     {
