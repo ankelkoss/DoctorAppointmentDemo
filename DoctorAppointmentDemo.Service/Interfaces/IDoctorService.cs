@@ -1,6 +1,6 @@
-﻿using MyDoctorAppointment.Domain.Entities;
+﻿using DoctorAppointmentDemo.Domain.Entities;
 
-namespace MyDoctorAppointment.Service.Interfaces
+namespace DoctorAppointmentDemo.Service.Interfaces
 {
     public interface IDoctorService
     {

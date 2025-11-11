@@ -1,6 +1,6 @@
-﻿using MyDoctorAppointment.Domain.Enums;
+﻿using DoctorAppointmentDemo.Domain.Enums;
 
-namespace MyDoctorAppointment.Domain.Entities
+namespace DoctorAppointmentDemo.Domain.Entities
 {
     public class Doctor : UserBase
     {

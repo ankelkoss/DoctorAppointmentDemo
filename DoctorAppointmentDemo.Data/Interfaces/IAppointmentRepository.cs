@@ -1,5 +1,5 @@
 ﻿using DoctorAppointmentDemo.Data.Interfaces.Base;
-using MyDoctorAppointment.Domain.Entities;
+using DoctorAppointmentDemo.Domain.Entities;
 
 namespace DoctorAppointmentDemo.Data.Interfaces
 {

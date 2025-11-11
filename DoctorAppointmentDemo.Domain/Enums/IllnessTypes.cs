@@ -1,4 +1,4 @@
-﻿namespace MyDoctorAppointment.Domain.Enums
+﻿namespace DoctorAppointmentDemo.Domain.Enums
 {
     public enum IllnessTypes
     {

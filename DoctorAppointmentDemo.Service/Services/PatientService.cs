@@ -1,7 +1,7 @@
 ﻿using DoctorAppointmentDemo.Data.Interfaces;
 using DoctorAppointmentDemo.Data.Repositories;
 using DoctorAppointmentDemo.Service.Interfaces;
-using MyDoctorAppointment.Domain.Entities;
+using DoctorAppointmentDemo.Domain.Entities;
 
 namespace DoctorAppointmentDemo.Service.Services
 {
