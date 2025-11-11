@@ -1,8 +1,6 @@
-﻿
-using DoctorAppointmentDemo.Data.Interfaces;
+﻿using DoctorAppointmentDemo.Data.Interfaces;
 using DoctorAppointmentDemo.Domain.DbConfig;
 using MyDoctorAppointment.Data.Configuration;
-using MyDoctorAppointment.Data.Interfaces;
 using MyDoctorAppointment.Data.Repositories;
 using MyDoctorAppointment.Domain.Entities;
 using Newtonsoft.Json;
@@ -17,16 +15,16 @@ namespace DoctorAppointmentDemo.Data.Repositories
 
         public PatientRepository()
         {
-            AppDbConfig result = base.ReadFromAppSettings();
+            JsonConfig result = base.ReadFromAppSettings().Database.Patients;
 
-            Path = result.Database.Patients.Path;
-            LastId = result.Database.Patients.LastId;
+            Path = result.Path;
+            LastId = result.LastId;
         }
 
         public override void ShowInfo(Patient source)
         {
             //TODO: implement this
-            throw new NotImplementedException();
+            Console.WriteLine();
         }
 
         protected override void SaveLastId()
