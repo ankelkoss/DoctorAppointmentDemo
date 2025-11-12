@@ -146,6 +146,23 @@ namespace DoctorAppointmentDemo.Data.Repositories.Base
             return jsonConfig;
         }
 
-        
+        public TSource Upsert(TSource source)
+        {
+            var items = GetAll();
+
+            // используя рефлексию (свой класс) ищем нужные (сейчас недоступные) абстрактные поля
+            var existing = ReflectionSearch.FindTSource(items, source);
+
+            if (existing is null)
+                return Create(source);
+
+            // достаём Id, он есть у всех
+            var idProp = ReflectionSearch.FindProp(existing.GetType(), "Id");
+            var idObj = idProp.GetValue(existing);
+  
+            var id = (int)Convert.ChangeType(idObj, typeof(int));
+
+            return Update(id, source);
+        }
     }
 }
