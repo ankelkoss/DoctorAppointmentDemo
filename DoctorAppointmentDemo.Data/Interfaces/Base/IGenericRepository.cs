@@ -10,6 +10,8 @@ namespace DoctorAppointmentDemo.Data.Interfaces.Base
 
         TSource Update(int id, TSource source);
 
+        TSource Upsert(TSource source);
+
         IEnumerable<TSource> GetAll();
 
         bool Delete(int id);

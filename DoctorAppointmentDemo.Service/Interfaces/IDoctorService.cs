@@ -13,5 +13,7 @@ namespace DoctorAppointmentDemo.Service.Interfaces
         bool Delete(int id);
 
         Doctor Update(int id, Doctor doctor);
+
+        Doctor Upsert(Doctor doctor);
     }
 }
