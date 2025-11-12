@@ -2,25 +2,13 @@
   {
     "DoctorType": 1,
     "Experience": 20,
-    "Salary": 0.0,
+    "Salary": 10000.0,
     "Name": "Vasya",
     "Surname": "Petrov",
-    "Phone": null,
-    "Email": null,
+    "Phone": "+380671234567",
+    "Email": "vasya.petrov@gmail.com",
     "Id": 1,
     "CreatedAt": "2024-01-04T21:15:00.5742047+02:00",
-    "UpdatedAt": "0001-01-01T00:00:00"
-  },
-  {
-    "DoctorType": 1,
-    "Experience": 20,
-    "Salary": 0.0,
-    "Name": "Vasya",
-    "Surname": "Petrov",
-    "Phone": null,
-    "Email": null,
-    "Id": 2,
-    "CreatedAt": "2024-01-04T21:15:10.6132587+02:00",
     "UpdatedAt": "0001-01-01T00:00:00"
   }
 ]
