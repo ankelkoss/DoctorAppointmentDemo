@@ -87,20 +87,22 @@ namespace DoctorAppointmentDemo.Data.Repositories.Base
                 if (appDbConfig.Database.Doctors.Equals(jsonConfig))
                 {
                     appDbConfig.Database.Doctors.LastId = jsonConfig.LastId;
-                    appDbConfig.Database.Doctors = MoveGlobalPathAppSettings(jsonConfig);
+                    //appDbConfig.Database.Doctors = this.MoveGlobalPathAppSettings(jsonConfig);
                 }
 
                 if (appDbConfig.Database.Patients.Equals(jsonConfig))
                 {
                     appDbConfig.Database.Patients.LastId = jsonConfig.LastId;
-                    appDbConfig.Database.Patients = MoveGlobalPathAppSettings(jsonConfig);
+                    //appDbConfig.Database.Patients = this.MoveGlobalPathAppSettings(jsonConfig);
                 }
 
                 if (appDbConfig.Database.Appointments.Equals(jsonConfig))
                 {
                     appDbConfig.Database.Appointments.LastId = jsonConfig.LastId;
-                    appDbConfig.Database.Patients = MoveGlobalPathAppSettings(jsonConfig);
+                    //appDbConfig.Database.Appointments = this.MoveGlobalPathAppSettings(jsonConfig);
                 }
+
+                appDbConfig = this.MoveGlobalPathAppSettings(appDbConfig);
 
                 File.WriteAllText(tmpPath, JsonConvert.SerializeObject(appDbConfig, Formatting.Indented));
                 File.Replace(tmpPath, currentPath, null);
@@ -138,12 +140,14 @@ namespace DoctorAppointmentDemo.Data.Repositories.Base
             return appDbConfig;
         }
 
-        protected JsonConfig MoveGlobalPathAppSettings(JsonConfig jsonConfig)
+        protected AppDbConfig MoveGlobalPathAppSettings(AppDbConfig appDbConfig)
         {
             // в файле храним относительные пути, при работе программы динамически удаляем путь при записи
-            jsonConfig.Path = Path.GetRelativePath(Constants.PrjData, jsonConfig.Path);
+            appDbConfig.Database.Doctors.Path = Path.GetRelativePath(Constants.PrjData, appDbConfig.Database.Doctors.Path);
+            appDbConfig.Database.Patients.Path = Path.GetRelativePath(Constants.PrjData, appDbConfig.Database.Patients.Path);
+            appDbConfig.Database.Appointments.Path = Path.GetRelativePath(Constants.PrjData, appDbConfig.Database.Appointments.Path);
 
-            return jsonConfig;
+            return appDbConfig;
         }
 
         public TSource Upsert(TSource source)
