@@ -38,5 +38,10 @@ namespace DoctorAppointmentDemo.Service.Services
         {
             return _appointmentRepository.Update(id, appointment);
         }
+
+        public Appointment Upsert(Appointment appointment)
+        {
+            return _appointmentRepository.Upsert(appointment);
+        }
     }
 }
