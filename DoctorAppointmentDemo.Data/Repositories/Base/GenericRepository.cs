@@ -46,7 +46,22 @@ namespace DoctorAppointmentDemo.Data.Repositories.Base
                 json = "[]";
             }
 
-            return JsonConvert.DeserializeObject<List<TSource>>(json)!;
+            var list = JsonConvert.DeserializeObject<List<TSource>>(json)!;
+
+            // автопроверка коректности последнего айдишника
+            if(list.Any())
+            {
+                list.Sort((a, b) => a.Id.CompareTo(b.Id));
+                JsonConfig.LastId = list.Last().Id;
+            }
+            else
+            {
+                JsonConfig.LastId = 0;
+            }
+
+            this.SaveLastId(this.JsonConfig);
+
+            return list;
         }
 
         public TSource? GetById(int id)
@@ -87,19 +102,14 @@ namespace DoctorAppointmentDemo.Data.Repositories.Base
                 if (appDbConfig.Database.Doctors.Equals(jsonConfig))
                 {
                     appDbConfig.Database.Doctors.LastId = jsonConfig.LastId;
-                    //appDbConfig.Database.Doctors = this.MoveGlobalPathAppSettings(jsonConfig);
                 }
-
-                if (appDbConfig.Database.Patients.Equals(jsonConfig))
+                else if (appDbConfig.Database.Patients.Equals(jsonConfig))
                 {
                     appDbConfig.Database.Patients.LastId = jsonConfig.LastId;
-                    //appDbConfig.Database.Patients = this.MoveGlobalPathAppSettings(jsonConfig);
                 }
-
-                if (appDbConfig.Database.Appointments.Equals(jsonConfig))
+                else if (appDbConfig.Database.Appointments.Equals(jsonConfig))
                 {
                     appDbConfig.Database.Appointments.LastId = jsonConfig.LastId;
-                    //appDbConfig.Database.Appointments = this.MoveGlobalPathAppSettings(jsonConfig);
                 }
 
                 appDbConfig = this.MoveGlobalPathAppSettings(appDbConfig);
