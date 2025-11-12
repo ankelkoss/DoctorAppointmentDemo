@@ -27,7 +27,7 @@ namespace DoctorAppointmentDemo.UI
                 IllnessType = Domain.Enums.IllnessTypes.EyeDisease
             };
 
-            patinet = patientService.Create(patinet);
+            patinet = patientService.Upsert(patinet);
 
             var appointment = new Appointment()
             {
@@ -38,9 +38,7 @@ namespace DoctorAppointmentDemo.UI
                 Description = "Something"
             };
 
-            var r = appointmentService.Create(appointment);
-
-
+            var r = appointmentService.Upsert(appointment);
         }
     }
 }
