@@ -66,6 +66,25 @@ namespace DoctorAppointmentDemo.Data.Repositories.Base
             return source;
         }
 
+        public TSource Upsert(TSource source)
+        {
+            var items = GetAll();
+
+            // используя рефлексию (свой класс) ищем нужные (сейчас недоступные) абстрактные поля
+            var existing = ReflectionSearch.FindTSource(items, source);
+
+            if (existing is null)
+                return Create(source);
+
+            // достаём Id, он есть у всех
+            var idProp = ReflectionSearch.FindProp(existing.GetType(), "Id");
+            var idObj = idProp.GetValue(existing);
+
+            var id = (int)Convert.ChangeType(idObj, typeof(int));
+
+            return Update(id, source);
+        }
+
         public abstract void ShowInfo(TSource source);
 
         public void SaveLastId(JsonConfig jsonConfig)
@@ -145,25 +164,6 @@ namespace DoctorAppointmentDemo.Data.Repositories.Base
             appDbConfig.Database.Appointments.Path = Path.GetRelativePath(Constants.PrjData, appDbConfig.Database.Appointments.Path);
 
             return appDbConfig;
-        }
-
-        public TSource Upsert(TSource source)
-        {
-            var items = GetAll();
-
-            // используя рефлексию (свой класс) ищем нужные (сейчас недоступные) абстрактные поля
-            var existing = ReflectionSearch.FindTSource(items, source);
-
-            if (existing is null)
-                return Create(source);
-
-            // достаём Id, он есть у всех
-            var idProp = ReflectionSearch.FindProp(existing.GetType(), "Id");
-            var idObj = idProp.GetValue(existing);
-  
-            var id = (int)Convert.ChangeType(idObj, typeof(int));
-
-            return Update(id, source);
         }
     }
 }
