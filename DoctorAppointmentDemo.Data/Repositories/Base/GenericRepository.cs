@@ -47,20 +47,7 @@ namespace DoctorAppointmentDemo.Data.Repositories.Base
             }
 
             var list = JsonConvert.DeserializeObject<List<TSource>>(json)!;
-
-            // автопроверка коректности последнего айдишника
-            if(list.Any())
-            {
-                list.Sort((a, b) => a.Id.CompareTo(b.Id));
-                JsonConfig.LastId = list.Last().Id;
-            }
-            else
-            {
-                JsonConfig.LastId = 0;
-            }
-
-            this.SaveLastId(this.JsonConfig);
-
+            
             return list;
         }
 
