@@ -1,9 +1,9 @@
-﻿using MyDoctorAppointment.Data.Interfaces;
-using MyDoctorAppointment.Data.Repositories;
-using MyDoctorAppointment.Domain.Entities;
-using MyDoctorAppointment.Service.Interfaces;
+﻿using DoctorAppointmentDemo.Data.Interfaces;
+using DoctorAppointmentDemo.Data.Repositories;
+using DoctorAppointmentDemo.Domain.Entities;
+using DoctorAppointmentDemo.Service.Interfaces;
 
-namespace MyDoctorAppointment.Service.Services
+namespace DoctorAppointmentDemo.Service.Services
 {
     public class DoctorService : IDoctorService
     {
@@ -37,6 +37,16 @@ namespace MyDoctorAppointment.Service.Services
         public Doctor Update(int id, Doctor doctor)
         {
             return _doctorRepository.Update(id, doctor);
+        }
+
+        public Doctor Upsert(Doctor doctor)
+        {
+            return _doctorRepository.Upsert(doctor);
+        }
+
+        public void ShowInfo(Doctor doctor)
+        {
+            _doctorRepository.ShowInfo(doctor);
         }
     }
 }
