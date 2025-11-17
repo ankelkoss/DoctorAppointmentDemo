@@ -1,6 +1,6 @@
-﻿using MyDoctorAppointment.Domain.Entities;
+﻿using DoctorAppointmentDemo.Domain.Entities;
 
-namespace MyDoctorAppointment.Data.Interfaces
+namespace DoctorAppointmentDemo.Data.Interfaces.Base
 {
     public interface IGenericRepository<TSource> where TSource : Auditable
     {
@@ -9,6 +9,8 @@ namespace MyDoctorAppointment.Data.Interfaces
         TSource? GetById(int id);
 
         TSource Update(int id, TSource source);
+
+        TSource Upsert(TSource source);
 
         IEnumerable<TSource> GetAll();
 

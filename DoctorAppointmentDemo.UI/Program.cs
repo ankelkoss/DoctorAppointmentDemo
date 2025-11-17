@@ -1,61 +1,89 @@
-﻿using MyDoctorAppointment.Domain.Entities;
-using MyDoctorAppointment.Service.Interfaces;
-using MyDoctorAppointment.Service.Services;
+﻿using System.Text;
+using DoctorAppointmentDemo.Data.Configuration;
+using DoctorAppointmentDemo.Domain.Enums;
+using Spectre.Console;
 
-namespace MyDoctorAppointment
+namespace DoctorAppointmentDemo.UI
 {
-    public class DoctorAppointment
-    {
-        private readonly IDoctorService _doctorService;
-
-        public DoctorAppointment()
-        {
-            _doctorService = new DoctorService();
-        }
-
-        public void Menu()
-        {
-            //while (true)
-            //{
-            //    // add Enum for menu items and describe menu
-            //}
-
-            Console.WriteLine("Current doctors list: ");
-            var docs = _doctorService.GetAll();
-
-            foreach (var doc in docs)
-            {
-                Console.WriteLine(doc.Name);
-            }
-
-            Console.WriteLine("Adding doctor: ");
-
-            var newDoctor = new Doctor
-            {
-                Name = "Vasya",
-                Surname = "Petrov",
-                Experience = 20,
-                DoctorType = Domain.Enums.DoctorTypes.Dentist
-            };
-
-            _doctorService.Create(newDoctor);
-
-            Console.WriteLine("Current doctors list: ");
-            docs = _doctorService.GetAll();
-
-            foreach (var doc in docs)
-            {
-                Console.WriteLine(doc.Name);
-            }
-        }
-    }
-
     public static class Program
     {
+        static void DelLocFile()
+        {
+            // удаление лок и бек файлов если они остались после внезапного завершения программы
+            // GenericRepository > SaveLastId
+
+            var currentPath = Constants.AppSettingsPath;
+            var lockPath = currentPath + ".lck";
+            var tmpPath = currentPath + ".tmp";
+
+            if (File.Exists(lockPath))
+            {
+                File.Delete(lockPath);
+            }
+
+            if (File.Exists(tmpPath))
+            {
+                File.Delete(tmpPath);
+            }
+        }
         public static void Main()
         {
+            Console.OutputEncoding = Encoding.UTF8;
+            Console.InputEncoding = Encoding.UTF8;
+
+            StartEffect.Matrix();
+            StartEffect.Banner();
+
             var doctorAppointment = new DoctorAppointment();
-            doctorAppointment.Menu();
+            var patientAppointment = new PatientAppointment();
+            var appAppointment = new AppAppointment();
+
+            DelLocFile();
+
+            var exit = false;
+
+            while (!exit)
+            {
+                AnsiConsole.Clear();
+                AnsiConsole.MarkupLine("[bold cyan]DoctorAppointmentDemo[/]");
+                AnsiConsole.WriteLine();
+
+                var choice = AnsiConsole.Prompt(
+                    new SelectionPrompt<MainMenuEnum>()
+                        .Title("Выберите [green]раздел[/]:")
+                        .UseConverter(item => item switch
+                        {
+                            MainMenuEnum.DoctorMenu => "Управление докторами",
+                            MainMenuEnum.PatientMenu => "Управление пациентами",
+                            MainMenuEnum.AppointmentMenu => "Управление записями на приём",
+                            MainMenuEnum.Exit => "Выход",
+
+                            _ => item.ToString()
+                        })
+                        .AddChoices(Enum.GetValues<MainMenuEnum>()));
+
+                switch (choice)
+                {
+                    case MainMenuEnum.DoctorMenu:
+                        doctorAppointment.Menu();
+                        break;
+
+                    case MainMenuEnum.PatientMenu:
+                        patientAppointment.Menu();
+                        break;
+
+                    case MainMenuEnum.AppointmentMenu:
+                        appAppointment.Menu();
+                        break;
+
+                    case MainMenuEnum.Exit:
+                        exit = true;
+                        break;
+                }
+            }
+
+            AnsiConsole.Clear();
+            AnsiConsole.MarkupLine("[grey]Приложение завершено.[/]");
         }
     }
 }
