@@ -1,6 +1,6 @@
 # DoctorAppointmentDemo
 
-![DoctorAppointmentDemo](https://raw.githubusercontent.com/ankelkoss/DoctorAppointmentDemo/refs/heads/main/logo.png)
+![DoctorAppointmentDemo](https://raw.githubusercontent.com/ankelkoss/DoctorAppointmentDemo/refs/heads/main/logoReadme.png)
 
 # Описание
 
