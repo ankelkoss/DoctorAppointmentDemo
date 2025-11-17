@@ -1,34 +1,24 @@
-﻿using MyDoctorAppointment.Data.Configuration;
-using MyDoctorAppointment.Data.Interfaces;
-using MyDoctorAppointment.Domain.Entities;
+﻿using DoctorAppointmentDemo.Data.Interfaces;
+using DoctorAppointmentDemo.Data.Repositories.Base;
+using DoctorAppointmentDemo.Domain.DbConfig;
+using DoctorAppointmentDemo.Domain.Entities;
+using DoctorAppointmentDemo.Domain.Enums;
 
-namespace MyDoctorAppointment.Data.Repositories
+namespace DoctorAppointmentDemo.Data.Repositories
 {
     public class DoctorRepository : GenericRepository<Doctor>, IDoctorRepository
     {
-        public override string Path { get; set; }
-
-        public override int LastId { get; set; }
+        public override JsonConfig JsonConfig { get; set; }
 
         public DoctorRepository()
         {
-            dynamic result = base.ReadFromAppSettings();
-
-            Path = result.Database.Doctors.Path;
-            LastId = result.Database.Doctors.LastId;
+            JsonConfig = base.ReadFromAppSettings().Database.Doctors;
         }
 
         public override void ShowInfo(Doctor doctor)
         {
-            Console.WriteLine(); // implement view of all object fields
-        }
-
-        protected override void SaveLastId()
-        {
-            dynamic result = base.ReadFromAppSettings();
-            result.Database.Doctors.LastId = LastId;
-
-            File.WriteAllText(Constants.AppSettingsPath, result.ToString());
+            string info = string.Format("Доктор: {0} {1}, тел: {2}, стаж: {3}, зп: {4}, тип: {5}", doctor.Name, doctor.Surname, doctor.Phone, doctor.Experience, doctor.Salary, doctor.DoctorType.GetDescription());
+            Console.WriteLine(info); 
         }
     }
 }

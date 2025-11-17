@@ -1,6 +1,6 @@
-﻿using MyDoctorAppointment.Domain.Entities;
+﻿using DoctorAppointmentDemo.Domain.Entities;
 
-namespace MyDoctorAppointment.Service.Interfaces
+namespace DoctorAppointmentDemo.Service.Interfaces
 {
     public interface IDoctorService
     {
@@ -13,5 +13,9 @@ namespace MyDoctorAppointment.Service.Interfaces
         bool Delete(int id);
 
         Doctor Update(int id, Doctor doctor);
+
+        Doctor Upsert(Doctor doctor);
+
+        void ShowInfo(Doctor doctor);
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace MyDoctorAppointment.Domain.Entities
+﻿namespace DoctorAppointmentDemo.Domain.Entities
 {
     public abstract class Auditable
     {
