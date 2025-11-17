@@ -1,5 +1,7 @@
 # DoctorAppointmentDemo
 
+![DoctorAppointmentDemo](https://raw.githubusercontent.com/ankelkoss/DoctorAppointmentDemo/refs/heads/main/logo.png)
+
 # Описание
 
 .NET 8 консольное приложение с объектно-ориентированной архитектурой: DoctorAppointmentDemo и консольное меню.
