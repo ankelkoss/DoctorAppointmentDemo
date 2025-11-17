@@ -2,6 +2,7 @@
 using DoctorAppointmentDemo.Data.Repositories.Base;
 using DoctorAppointmentDemo.Domain.DbConfig;
 using DoctorAppointmentDemo.Domain.Entities;
+using DoctorAppointmentDemo.Domain.Enums;
 
 namespace DoctorAppointmentDemo.Data.Repositories
 {
@@ -16,8 +17,8 @@ namespace DoctorAppointmentDemo.Data.Repositories
 
         public override void ShowInfo(Patient source)
         {
-            //TODO: implement this
-            Console.WriteLine();
+            string info = string.Format("Пациент: {0} {1}, тел: {2}, описание: {3}, тип: {4}", source.Name, source.Surname, source.Phone, source.AdditionalInfo, source.IllnessType.GetDescription());
+            Console.WriteLine(info);
         }
     }
 }

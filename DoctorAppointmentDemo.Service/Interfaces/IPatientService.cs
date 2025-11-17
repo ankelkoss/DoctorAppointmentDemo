@@ -13,6 +13,9 @@ namespace DoctorAppointmentDemo.Service.Interfaces
         bool Delete(int id);
 
         Patient Update(int id, Patient patient);
+
         Patient Upsert(Patient patient);
+
+        void ShowInfo(Patient source);
     }
 }
