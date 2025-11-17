@@ -15,5 +15,7 @@ namespace DoctorAppointmentDemo.Service.Interfaces
         Doctor Update(int id, Doctor doctor);
 
         Doctor Upsert(Doctor doctor);
+
+        void ShowInfo(Doctor doctor);
     }
 }

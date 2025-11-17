@@ -43,5 +43,10 @@ namespace DoctorAppointmentDemo.Service.Services
         {
             return _doctorRepository.Upsert(doctor);
         }
+
+        public void ShowInfo(Doctor doctor)
+        {
+            _doctorRepository.ShowInfo(doctor);
+        }
     }
 }
