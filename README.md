@@ -1,5 +1,3 @@
-# DoctorAppointmentDemo
-
 ![DoctorAppointmentDemo](https://raw.githubusercontent.com/ankelkoss/DoctorAppointmentDemo/refs/heads/main/logoReadme2.png)
 
 # Описание
