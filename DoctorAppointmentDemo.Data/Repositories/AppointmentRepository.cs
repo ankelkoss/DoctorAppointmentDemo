@@ -16,8 +16,8 @@ namespace DoctorAppointmentDemo.Data.Repositories
 
         public override void ShowInfo(Appointment source)
         {
-            //TODO: implement this
-            Console.WriteLine();
+            string info = string.Format("Запись к доктору: {0} {1}, пациента: {2} {3}, на: {4}", source.Doctor!.Name, source.Doctor.Surname, source.Patient!.Name, source.Patient.Surname, source.DateTimeFrom);
+            Console.WriteLine(info);
         }
     }
 }
