@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace DoctorAppointmentDemo.Data.Repositories.Base
 {
@@ -93,6 +94,20 @@ namespace DoctorAppointmentDemo.Data.Repositories.Base
         {
             if (string.IsNullOrEmpty(a) || string.IsNullOrEmpty(b)) 
                 return false;
+
+            a = clearNumber(a);
+            b = clearNumber(b);
+
+            string clearNumber(string number)
+            {
+                number = Regex.Replace(number, @"\D", ""); // удаляем всё, что НЕ цифра
+
+                // берем все что после 0 (включительно) в номере 
+                // +380 ХХХ ХХ ХХ
+                int index = number.IndexOf('0');
+
+                return index >= 0 ? number[index..] : number;
+            }
 
             return string.Equals(a, b, StringComparison.Ordinal);
         }
