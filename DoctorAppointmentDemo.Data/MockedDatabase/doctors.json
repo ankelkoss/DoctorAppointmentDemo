@@ -1,14 +1,50 @@
 [
   {
     "DoctorType": 1,
-    "Experience": 20,
-    "Salary": 10000.0,
-    "Name": "Vasya",
-    "Surname": "Petrov",
-    "Phone": "+380671234567",
-    "Email": "vasya.petrov@gmail.com",
+    "Experience": 7,
+    "Salary": 18000.0,
+    "Name": "Ivan",
+    "Surname": "Kovalenko",
+    "Phone": "+380671112233",
+    "Email": "ivan.kovalenko.dentist@example.com",
     "Id": 1,
-    "CreatedAt": "2024-01-04T21:15:00.5742047+02:00",
-    "UpdatedAt": "0001-01-01T00:00:00"
+    "CreatedAt": "2024-01-04T09:15:00.0000000+02:00",
+    "UpdatedAt": "2024-01-04T09:15:00.0000000+02:00"
+  },
+  {
+    "DoctorType": 2,
+    "Experience": 12,
+    "Salary": 22000.0,
+    "Name": "Olena",
+    "Surname": "Melnichenko",
+    "Phone": "+380672223344",
+    "Email": "olena.melnichenko.derm@example.com",
+    "Id": 2,
+    "CreatedAt": "2024-01-05T10:30:00.0000000+02:00",
+    "UpdatedAt": "2024-01-05T10:30:00.0000000+02:00"
+  },
+  {
+    "DoctorType": 3,
+    "Experience": 5,
+    "Salary": 20000.0,
+    "Name": "Petro",
+    "Surname": "Shevchuk",
+    "Phone": "+380673334455",
+    "Email": "petro.shevchuk.family@example.com",
+    "Id": 3,
+    "CreatedAt": "2024-01-06T14:05:00.0000000+02:00",
+    "UpdatedAt": "2024-01-06T14:05:00.0000000+02:00"
+  },
+  {
+    "DoctorType": 4,
+    "Experience": 3,
+    "Salary": 16000.0,
+    "Name": "Svitlana",
+    "Surname": "Bondar",
+    "Phone": "+380674445566",
+    "Email": "svitlana.bondar.paramedic@example.com",
+    "Id": 4,
+    "CreatedAt": "2024-01-07T08:45:00.0000000+02:00",
+    "UpdatedAt": "2024-01-07T08:45:00.0000000+02:00"
   }
 ]
