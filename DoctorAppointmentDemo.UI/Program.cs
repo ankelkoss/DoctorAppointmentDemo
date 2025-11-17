@@ -1,44 +1,89 @@
-﻿using DoctorAppointmentDemo.Domain.Entities;
-using DoctorAppointmentDemo.Service.Services;
+﻿using System.Text;
+using DoctorAppointmentDemo.Data.Configuration;
+using DoctorAppointmentDemo.Domain.Enums;
+using Spectre.Console;
 
 namespace DoctorAppointmentDemo.UI
 {
     public static class Program
     {
+        static void DelLocFile()
+        {
+            // удаление лок и бек файлов если они остались после внезапного завершения программы
+            // GenericRepository > SaveLastId
+
+            var currentPath = Constants.AppSettingsPath;
+            var lockPath = currentPath + ".lck";
+            var tmpPath = currentPath + ".tmp";
+
+            if (File.Exists(lockPath))
+            {
+                File.Delete(lockPath);
+            }
+
+            if (File.Exists(tmpPath))
+            {
+                File.Delete(tmpPath);
+            }
+        }
         public static void Main()
         {
-            //var doctorAppointment = new DoctorAppointment();
-            //doctorAppointment.Menu();
+            Console.OutputEncoding = Encoding.UTF8;
+            Console.InputEncoding = Encoding.UTF8;
 
-            var patientService = new PatientService();
-            var doctorService = new DoctorService();
-            var appointmentService = new AppointmentService();
+            StartEffect.Matrix();
+            StartEffect.Banner();
 
-            Doctor doctor = doctorService.GetAll().First();
+            var doctorAppointment = new DoctorAppointment();
+            var patientAppointment = new PatientAppointment();
+            var appAppointment = new AppAppointment();
 
-            Patient patinet = new Patient()
+            DelLocFile();
+
+            var exit = false;
+
+            while (!exit)
             {
-                Name = "Тарас",
-                Surname = "Тарасович",
-                Address = "Украина, Киев, ул. Прорезная 12 кв 3",
-                Phone = "+380931234567",
-                Email = "taras.tarasovich@gmail.com",
-                AdditionalInfo = "somithing",
-                IllnessType = Domain.Enums.IllnessTypes.EyeDisease
-            };
+                AnsiConsole.Clear();
+                AnsiConsole.MarkupLine("[bold cyan]DoctorAppointmentDemo[/]");
+                AnsiConsole.WriteLine();
 
-            patinet = patientService.Upsert(patinet);
+                var choice = AnsiConsole.Prompt(
+                    new SelectionPrompt<MainMenuEnum>()
+                        .Title("Выберите [green]раздел[/]:")
+                        .UseConverter(item => item switch
+                        {
+                            MainMenuEnum.DoctorMenu => "Управление докторами",
+                            MainMenuEnum.PatientMenu => "Управление пациентами",
+                            MainMenuEnum.AppointmentMenu => "Управление записями на приём",
+                            MainMenuEnum.Exit => "Выход",
 
-            var appointment = new Appointment()
-            {
-                Doctor = doctor,
-                Patient = patinet,
-                DateTimeFrom = DateTime.Parse("20.11.2025 14:00"),
-                DateTimeTo = DateTime.Parse("20.11.2025 15:00"),
-                Description = "Something"
-            };
+                            _ => item.ToString()
+                        })
+                        .AddChoices(Enum.GetValues<MainMenuEnum>()));
 
-            var r = appointmentService.Upsert(appointment);
+                switch (choice)
+                {
+                    case MainMenuEnum.DoctorMenu:
+                        doctorAppointment.Menu();
+                        break;
+
+                    case MainMenuEnum.PatientMenu:
+                        patientAppointment.Menu();
+                        break;
+
+                    case MainMenuEnum.AppointmentMenu:
+                        appAppointment.Menu();
+                        break;
+
+                    case MainMenuEnum.Exit:
+                        exit = true;
+                        break;
+                }
+            }
+
+            AnsiConsole.Clear();
+            AnsiConsole.MarkupLine("[grey]Приложение завершено.[/]");
         }
     }
 }
