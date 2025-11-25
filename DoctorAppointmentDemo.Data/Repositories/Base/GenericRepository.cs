@@ -15,7 +15,7 @@ namespace DoctorAppointmentDemo.Data.Repositories.Base
             source.Id = ++this.JsonConfig.LastId;
             source.CreatedAt = DateTime.Now;
 
-            File.WriteAllText(JsonConfig.Path, JsonConvert.SerializeObject(GetAll().Append(source), Formatting.Indented));
+            File.WriteAllText(JsonConfig.Path, this.SerializeAll(GetAll().Append(source)));
             SaveLastId(this.JsonConfig);
 
             return source;
@@ -25,8 +25,8 @@ namespace DoctorAppointmentDemo.Data.Repositories.Base
         {
             if (GetById(id) is null)
                 return false;
-
-            File.WriteAllText(this.JsonConfig.Path, JsonConvert.SerializeObject(GetAll().Where(x => x.Id != id), Formatting.Indented));
+            
+            File.WriteAllText(this.JsonConfig.Path, this.SerializeAll(GetAll().Where(x => x.Id != id)));
 
             return true;
         }
@@ -46,9 +46,7 @@ namespace DoctorAppointmentDemo.Data.Repositories.Base
                 json = "[]";
             }
 
-            var list = JsonConvert.DeserializeObject<List<TSource>>(json)!;
-            
-            return list;
+            return DeserializeAll(json);
         }
 
         public TSource? GetById(int id)
@@ -61,7 +59,7 @@ namespace DoctorAppointmentDemo.Data.Repositories.Base
             source.UpdatedAt = DateTime.Now;
             source.Id = id;
 
-            File.WriteAllText(this.JsonConfig.Path, JsonConvert.SerializeObject(GetAll().Select(x => x.Id == id ? source : x), Formatting.Indented));
+            File.WriteAllText(this.JsonConfig.Path, this.SerializeAll(GetAll().Select(x => x.Id == id ? source : x)));
 
             return source;
         }
@@ -84,6 +82,8 @@ namespace DoctorAppointmentDemo.Data.Repositories.Base
 
             return Update(id, source);
         }
+
+        // ---------------------------------------------------------------------------------------
 
         public abstract void ShowInfo(TSource source);
 
@@ -164,6 +164,17 @@ namespace DoctorAppointmentDemo.Data.Repositories.Base
             appDbConfig.Database.Appointments.Path = Path.GetRelativePath(Constants.PrjData, appDbConfig.Database.Appointments.Path);
 
             return appDbConfig;
+        }
+
+        protected virtual IEnumerable<TSource> DeserializeAll(string json)
+        {
+            var list = JsonConvert.DeserializeObject<List<TSource>>(json)!;
+            return list;
+        }
+
+        protected virtual string SerializeAll(IEnumerable<TSource> items)
+        {
+            return JsonConvert.SerializeObject(items, Formatting.Indented);
         }
     }
 }
