@@ -7,15 +7,15 @@ using Newtonsoft.Json;
 
 namespace DoctorAppointmentDemo.Data.Repositories
 {
-    public class AppointmentRepository : GenericRepository<Appointment>, IAppointmentRepository
+    public class AppointmentRepository : JsonGenericRepository<Appointment>, IAppointmentRepository
     {
-        public override JsonConfig JsonConfig { get; set; }
+        public override FileStorageConfig FileStorageConfig { get; set; }
         private readonly IDoctorRepository _doctorRepository;
         private readonly IPatientRepository _patientRepository;
 
         public AppointmentRepository()
         {
-            JsonConfig = base.ReadFromAppSettings().Database.Appointments;
+            FileStorageConfig = base.ReadFromAppSettings().Database.Appointments.Json;
             _doctorRepository = new DoctorRepository();
             _patientRepository = new PatientRepository();
         }
