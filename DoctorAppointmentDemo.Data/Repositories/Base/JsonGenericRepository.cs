@@ -1,5 +1,6 @@
 ﻿using DoctorAppointmentDemo.Data.Configuration;
 using DoctorAppointmentDemo.Data.Interfaces.Base;
+using DoctorAppointmentDemo.Data.Repositories.Base.Helpers;
 using DoctorAppointmentDemo.Domain.DbConfig;
 using DoctorAppointmentDemo.Domain.Entities;
 using Newtonsoft.Json;
@@ -120,6 +121,7 @@ namespace DoctorAppointmentDemo.Data.Repositories.Base
 
                 appDbConfig = this.MoveGlobalPathAppSettings(appDbConfig);
 
+                // appsettings.json
                 File.WriteAllText(tmpPath, JsonConvert.SerializeObject(appDbConfig, Formatting.Indented));
                 File.Replace(tmpPath, currentPath, null);
             }
