@@ -1,29 +1,7 @@
 [
   {
-    "Patient": {
-      "IllnessType": 1,
-      "AdditionalInfo": "Скарги на затуманенное зрение и боль в правом глазу.",
-      "Address": "г. Киев, ул. Грушевского, д. 10, кв. 15",
-      "Name": "Олег",
-      "Surname": "Кравченко",
-      "Phone": "+380931111111",
-      "Email": "oleg.kravchenko.eyedisease@example.com",
-      "Id": 1,
-      "CreatedAt": "2025-01-10T09:15:00+02:00",
-      "UpdatedAt": "2025-01-10T09:15:00+02:00"
-    },
-    "Doctor": {
-      "DoctorType": 3,
-      "Experience": 5,
-      "Salary": 20000.0,
-      "Name": "Petro",
-      "Surname": "Shevchuk",
-      "Phone": "+380673334455",
-      "Email": "petro.shevchuk.family@example.com",
-      "Id": 3,
-      "CreatedAt": "2024-01-06T14:05:00+02:00",
-      "UpdatedAt": "2024-01-06T14:05:00+02:00"
-    },
+    "DoctorId": 3,
+    "PatientId": 1,
     "DateTimeFrom": "2025-11-20T09:00:00",
     "DateTimeTo": "2025-11-20T09:45:00",
     "Description": "Первичный осмотр офтальмолога",
@@ -32,30 +10,8 @@
     "UpdatedAt": "0001-01-01T00:00:00"
   },
   {
-    "Patient": {
-      "IllnessType": 2,
-      "AdditionalInfo": "Повышенная температура, кашель, общее недомогание.",
-      "Address": "г. Львов, пр. Свободы, д. 21, кв. 8",
-      "Name": "Мария",
-      "Surname": "Данилюк",
-      "Phone": "+380932222222",
-      "Email": "maria.danyliuk.infection@example.com",
-      "Id": 2,
-      "CreatedAt": "2025-02-03T11:40:00+02:00",
-      "UpdatedAt": "2025-02-03T11:40:00+02:00"
-    },
-    "Doctor": {
-      "DoctorType": 3,
-      "Experience": 5,
-      "Salary": 20000.0,
-      "Name": "Petro",
-      "Surname": "Shevchuk",
-      "Phone": "+380673334455",
-      "Email": "petro.shevchuk.family@example.com",
-      "Id": 3,
-      "CreatedAt": "2024-01-06T14:05:00+02:00",
-      "UpdatedAt": "2024-01-06T14:05:00+02:00"
-    },
+    "DoctorId": 3,
+    "PatientId": 2,
     "DateTimeFrom": "2025-11-21T11:00:00",
     "DateTimeTo": "2025-11-21T11:30:00",
     "Description": "Приём при острой инфекции",
@@ -64,30 +20,8 @@
     "UpdatedAt": "0001-01-01T00:00:00"
   },
   {
-    "Patient": {
-      "IllnessType": 3,
-      "AdditionalInfo": "Острая боль в нижнем левом моляре, подозрение на кариес.",
-      "Address": "г. Харьков, ул. Научная, д. 5, кв. 32",
-      "Name": "Андрей",
-      "Surname": "Поліщук",
-      "Phone": "+380933333333",
-      "Email": "andrii.polishchuk.dental@example.com",
-      "Id": 3,
-      "CreatedAt": "2025-03-15T16:05:00+02:00",
-      "UpdatedAt": "2025-03-15T16:05:00+02:00"
-    },
-    "Doctor": {
-      "DoctorType": 1,
-      "Experience": 7,
-      "Salary": 18000.0,
-      "Name": "Ivan",
-      "Surname": "Kovalenko",
-      "Phone": "+380671112233",
-      "Email": "ivan.kovalenko.dentist@example.com",
-      "Id": 1,
-      "CreatedAt": "2024-01-04T09:15:00+02:00",
-      "UpdatedAt": "2024-01-04T09:15:00+02:00"
-    },
+    "DoctorId": 1,
+    "PatientId": 3,
     "DateTimeFrom": "2025-11-22T15:00:00",
     "DateTimeTo": "2025-11-22T16:00:00",
     "Description": "Боль в зубе, требуется диагностика",
@@ -96,30 +30,8 @@
     "UpdatedAt": "0001-01-01T00:00:00"
   },
   {
-    "Patient": {
-      "IllnessType": 4,
-      "AdditionalInfo": "Сыпь на руках и шее, периодический зуд, возможная аллергическая реакция.",
-      "Address": "г. Днепр, ул. Центральная, д. 48, кв. 3",
-      "Name": "Ирина",
-      "Surname": "Сидоренко",
-      "Phone": "+380934444444",
-      "Email": "iryna.sydorenko.skin@example.com",
-      "Id": 4,
-      "CreatedAt": "2025-04-22T13:20:00+02:00",
-      "UpdatedAt": "2025-04-22T13:20:00+02:00"
-    },
-    "Doctor": {
-      "DoctorType": 2,
-      "Experience": 12,
-      "Salary": 22000.0,
-      "Name": "Olena",
-      "Surname": "Melnichenko",
-      "Phone": "+380672223344",
-      "Email": "olena.melnichenko.derm@example.com",
-      "Id": 2,
-      "CreatedAt": "2024-01-05T10:30:00+02:00",
-      "UpdatedAt": "2024-01-05T10:30:00+02:00"
-    },
+    "DoctorId": 2,
+    "PatientId": 4,
     "DateTimeFrom": "2025-11-23T10:30:00",
     "DateTimeTo": "2025-11-23T11:15:00",
     "Description": "Диагностика кожной сыпи",
@@ -128,30 +40,8 @@
     "UpdatedAt": "0001-01-01T00:00:00"
   },
   {
-    "Patient": {
-      "IllnessType": 5,
-      "AdditionalInfo": "Острая боль в груди, затруднённое дыхание, вызов скорой помощи.",
-      "Address": "г. Одесса, ул. Дерибасовская, д. 7, кв. 20",
-      "Name": "Сергей",
-      "Surname": "Мельник",
-      "Phone": "+380935555555",
-      "Email": "serhii.melnyk.ambulance@example.com",
-      "Id": 5,
-      "CreatedAt": "2025-05-30T18:45:00+02:00",
-      "UpdatedAt": "2025-05-30T18:45:00+02:00"
-    },
-    "Doctor": {
-      "DoctorType": 4,
-      "Experience": 3,
-      "Salary": 16000.0,
-      "Name": "Svitlana",
-      "Surname": "Bondar",
-      "Phone": "+380674445566",
-      "Email": "svitlana.bondar.paramedic@example.com",
-      "Id": 4,
-      "CreatedAt": "2024-01-07T08:45:00+02:00",
-      "UpdatedAt": "2024-01-07T08:45:00+02:00"
-    },
+    "DoctorId": 4,
+    "PatientId": 5,
     "DateTimeFrom": "2025-11-24T19:00:00",
     "DateTimeTo": "2025-11-24T19:45:00",
     "Description": "Срочный медицинский осмотр",

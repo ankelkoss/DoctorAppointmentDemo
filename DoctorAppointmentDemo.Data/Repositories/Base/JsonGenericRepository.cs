@@ -6,17 +6,17 @@ using Newtonsoft.Json;
 
 namespace DoctorAppointmentDemo.Data.Repositories.Base
 {
-    public abstract class GenericRepository<TSource> : IGenericRepository<TSource> where TSource : Auditable
+    public abstract class JsonGenericRepository<TSource> : IGenericRepository<TSource> where TSource : Auditable
     {
-        public abstract JsonConfig JsonConfig { get; set; }
+        public abstract FileStorageConfig FileStorageConfig { get; set; }
 
         public TSource Create(TSource source)
         {
-            source.Id = ++this.JsonConfig.LastId;
+            source.Id = ++this.FileStorageConfig.LastId;
             source.CreatedAt = DateTime.Now;
 
-            File.WriteAllText(JsonConfig.Path, JsonConvert.SerializeObject(GetAll().Append(source), Formatting.Indented));
-            SaveLastId(this.JsonConfig);
+            File.WriteAllText(FileStorageConfig.Path, this.SerializeAll(GetAll().Append(source)));
+            SaveLastId(this.FileStorageConfig);
 
             return source;
         }
@@ -25,30 +25,28 @@ namespace DoctorAppointmentDemo.Data.Repositories.Base
         {
             if (GetById(id) is null)
                 return false;
-
-            File.WriteAllText(this.JsonConfig.Path, JsonConvert.SerializeObject(GetAll().Where(x => x.Id != id), Formatting.Indented));
+            
+            File.WriteAllText(this.FileStorageConfig.Path, this.SerializeAll(GetAll().Where(x => x.Id != id)));
 
             return true;
         }
 
         public IEnumerable<TSource> GetAll()
         {
-            if (!File.Exists(this.JsonConfig.Path))
+            if (!File.Exists(this.FileStorageConfig.Path))
             {
-                File.WriteAllText(this.JsonConfig.Path, "[]");
+                File.WriteAllText(this.FileStorageConfig.Path, "[]");
             }
 
-            var json = File.ReadAllText(this.JsonConfig.Path);
+            var json = File.ReadAllText(this.FileStorageConfig.Path);
 
             if (string.IsNullOrWhiteSpace(json))
             {
-                File.WriteAllText(this.JsonConfig.Path, "[]");
+                File.WriteAllText(this.FileStorageConfig.Path, "[]");
                 json = "[]";
             }
 
-            var list = JsonConvert.DeserializeObject<List<TSource>>(json)!;
-            
-            return list;
+            return DeserializeAll(json);
         }
 
         public TSource? GetById(int id)
@@ -61,7 +59,7 @@ namespace DoctorAppointmentDemo.Data.Repositories.Base
             source.UpdatedAt = DateTime.Now;
             source.Id = id;
 
-            File.WriteAllText(this.JsonConfig.Path, JsonConvert.SerializeObject(GetAll().Select(x => x.Id == id ? source : x), Formatting.Indented));
+            File.WriteAllText(this.FileStorageConfig.Path, this.SerializeAll(GetAll().Select(x => x.Id == id ? source : x)));
 
             return source;
         }
@@ -85,9 +83,11 @@ namespace DoctorAppointmentDemo.Data.Repositories.Base
             return Update(id, source);
         }
 
+        // ---------------------------------------------------------------------------------------
+
         public abstract void ShowInfo(TSource source);
 
-        public void SaveLastId(JsonConfig jsonConfig)
+        public void SaveLastId(FileStorageConfig jsonConfig)
         {
             // реализовал метод тут так как не вижу смысла плодить копипасту
 
@@ -107,15 +107,15 @@ namespace DoctorAppointmentDemo.Data.Repositories.Base
 
                 if (appDbConfig.Database.Doctors.Equals(jsonConfig))
                 {
-                    appDbConfig.Database.Doctors.LastId = jsonConfig.LastId;
+                    appDbConfig.Database.Doctors.Json.LastId = jsonConfig.LastId;
                 }
                 else if (appDbConfig.Database.Patients.Equals(jsonConfig))
                 {
-                    appDbConfig.Database.Patients.LastId = jsonConfig.LastId;
+                    appDbConfig.Database.Patients.Json.LastId = jsonConfig.LastId;
                 }
                 else if (appDbConfig.Database.Appointments.Equals(jsonConfig))
                 {
-                    appDbConfig.Database.Appointments.LastId = jsonConfig.LastId;
+                    appDbConfig.Database.Appointments.Json.LastId = jsonConfig.LastId;
                 }
 
                 appDbConfig = this.MoveGlobalPathAppSettings(appDbConfig);
@@ -149,9 +149,9 @@ namespace DoctorAppointmentDemo.Data.Repositories.Base
         protected AppDbConfig AddGlobalPathAppSettings(AppDbConfig appDbConfig)
         {
             // в файле храним относительные пути, при работе программы динамически подставляем путь при чтении
-            appDbConfig.Database.Doctors.Path = Path.Combine(Constants.PrjData, appDbConfig.Database.Doctors.Path);
-            appDbConfig.Database.Patients.Path = Path.Combine(Constants.PrjData, appDbConfig.Database.Patients.Path);
-            appDbConfig.Database.Appointments.Path = Path.Combine(Constants.PrjData, appDbConfig.Database.Appointments.Path);
+            appDbConfig.Database.Doctors.Json.Path = Path.Combine(Constants.PrjData, appDbConfig.Database.Doctors.Json.Path);
+            appDbConfig.Database.Patients.Json.Path = Path.Combine(Constants.PrjData, appDbConfig.Database.Patients.Json.Path);
+            appDbConfig.Database.Appointments.Json.Path = Path.Combine(Constants.PrjData, appDbConfig.Database.Appointments.Json.Path);
 
             return appDbConfig;
         }
@@ -159,11 +159,22 @@ namespace DoctorAppointmentDemo.Data.Repositories.Base
         protected AppDbConfig MoveGlobalPathAppSettings(AppDbConfig appDbConfig)
         {
             // в файле храним относительные пути, при работе программы динамически удаляем путь при записи
-            appDbConfig.Database.Doctors.Path = Path.GetRelativePath(Constants.PrjData, appDbConfig.Database.Doctors.Path);
-            appDbConfig.Database.Patients.Path = Path.GetRelativePath(Constants.PrjData, appDbConfig.Database.Patients.Path);
-            appDbConfig.Database.Appointments.Path = Path.GetRelativePath(Constants.PrjData, appDbConfig.Database.Appointments.Path);
+            appDbConfig.Database.Doctors.Json.Path = Path.GetRelativePath(Constants.PrjData, appDbConfig.Database.Doctors.Json.Path);
+            appDbConfig.Database.Patients.Json.Path = Path.GetRelativePath(Constants.PrjData, appDbConfig.Database.Patients.Json.Path);
+            appDbConfig.Database.Appointments.Json.Path = Path.GetRelativePath(Constants.PrjData, appDbConfig.Database.Appointments.Json.Path);
 
             return appDbConfig;
+        }
+
+        protected virtual IEnumerable<TSource> DeserializeAll(string json)
+        {
+            var list = JsonConvert.DeserializeObject<List<TSource>>(json)!;
+            return list;
+        }
+
+        protected virtual string SerializeAll(IEnumerable<TSource> items)
+        {
+            return JsonConvert.SerializeObject(items, Formatting.Indented);
         }
     }
 }

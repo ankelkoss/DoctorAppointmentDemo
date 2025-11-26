@@ -6,13 +6,13 @@ using DoctorAppointmentDemo.Domain.Enums;
 
 namespace DoctorAppointmentDemo.Data.Repositories
 {
-    public class DoctorRepository : GenericRepository<Doctor>, IDoctorRepository
+    public class DoctorRepository : JsonGenericRepository<Doctor>, IDoctorRepository
     {
-        public override JsonConfig JsonConfig { get; set; }
+        public override FileStorageConfig FileStorageConfig { get; set; }
 
         public DoctorRepository()
         {
-            JsonConfig = base.ReadFromAppSettings().Database.Doctors;
+            FileStorageConfig = base.ReadFromAppSettings().Database.Doctors.Json;
         }
 
         public override void ShowInfo(Doctor doctor)
