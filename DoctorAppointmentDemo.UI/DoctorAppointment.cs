@@ -1,4 +1,5 @@
-﻿using DoctorAppointmentDemo.Domain.Entities;
+﻿using DoctorAppointmentDemo.Data.Repositories.Provider;
+using DoctorAppointmentDemo.Domain.Entities;
 using DoctorAppointmentDemo.Domain.Enums;
 using DoctorAppointmentDemo.Service.Interfaces;
 using DoctorAppointmentDemo.Service.Services;
@@ -12,9 +13,12 @@ namespace DoctorAppointmentDemo.UI
         private readonly IDoctorService _doctorService;
         private Doctor BackButton = new Doctor();
 
-        public DoctorAppointment()
+        public DoctorAppointment(StorageTypeEnum storageType)
         {
-            _doctorService = new DoctorService();
+            var repoProvider = RepositoryProviderFactory.Create(storageType);
+
+            _doctorService = new DoctorService(repoProvider.Doctors);
+
             BackButton = new Doctor
             {
                 Id = -1,

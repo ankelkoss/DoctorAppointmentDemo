@@ -1,10 +1,10 @@
-﻿using DoctorAppointmentDemo.Domain.Entities;
+﻿using DoctorAppointmentDemo.Data.Repositories.Provider;
+using DoctorAppointmentDemo.Domain.Entities;
 using DoctorAppointmentDemo.Domain.Enums;
 using DoctorAppointmentDemo.Service.Interfaces;
 using DoctorAppointmentDemo.Service.Services;
 using DoctorAppointmentDemo.UI.Helpers;
 using Spectre.Console;
-using System.Numerics;
 
 namespace DoctorAppointmentDemo.UI
 {
@@ -13,9 +13,12 @@ namespace DoctorAppointmentDemo.UI
         private readonly IPatientService _patientService;
         private Patient BackButton = new Patient();
 
-        public PatientAppointment()
+        public PatientAppointment(StorageTypeEnum storageType)
         {
-            _patientService = new PatientService();
+            var repoProvider = RepositoryProviderFactory.Create(storageType);
+
+            _patientService = new PatientService(repoProvider.Patients);
+
             BackButton = new Patient
             {
                 Id = -1,
