@@ -4,15 +4,15 @@ using DoctorAppointmentDemo.Domain.DbConfig;
 using DoctorAppointmentDemo.Domain.Entities;
 using DoctorAppointmentDemo.Domain.Enums;
 
-namespace DoctorAppointmentDemo.Data.Repositories
+namespace DoctorAppointmentDemo.Data.Repositories.Xml
 {
-    public class PatientRepository : GenericRepository<Patient>, IPatientRepository
+    public class XmlPatientRepository : XmlGenericRepository<Patient>, IPatientRepository
     {
-        public override JsonConfig JsonConfig { get; set; }
+        public override FileStorageConfig FileStorageConfig { get; set; }
 
-        public PatientRepository()
+        public XmlPatientRepository()
         {
-            JsonConfig = base.ReadFromAppSettings().Database.Patients;
+            FileStorageConfig = ReadFromAppSettings().Database.Patients.Xml;
         }
 
         public override void ShowInfo(Patient source)

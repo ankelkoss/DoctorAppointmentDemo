@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Text.RegularExpressions;
 
-namespace DoctorAppointmentDemo.Data.Repositories.Base
+namespace DoctorAppointmentDemo.Data.Repositories.Base.Helpers
 {
     public static class ReflectionSearch
     {

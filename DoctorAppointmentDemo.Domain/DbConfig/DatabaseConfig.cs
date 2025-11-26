@@ -2,8 +2,8 @@
 {
     public sealed class DatabaseConfig
     {
-        public JsonConfig Doctors { get; set; } = new();
-        public JsonConfig Patients { get; set; } = new();
-        public JsonConfig Appointments { get; set; } = new();
+        public EntityStorageConfig Doctors { get; set; } = new();
+        public EntityStorageConfig Patients { get; set; } = new();
+        public EntityStorageConfig Appointments { get; set; } = new();
     }
 }
