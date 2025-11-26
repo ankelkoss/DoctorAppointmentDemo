@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ArrayOfAppointmentDTO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AppointmentDTO>
+    <Id>1</Id>
+    <CreatedAt>2025-11-26T19:36:30.7014026+02:00</CreatedAt>
+    <UpdatedAt>0001-01-01T00:00:00</UpdatedAt>
+    <DoctorId>1</DoctorId>
+    <PatientId>1</PatientId>
+    <DateTimeFrom>2025-11-27T14:30:00</DateTimeFrom>
+    <DateTimeTo>2025-11-27T15:30:00</DateTimeTo>
+    <Description>dfsdfsfsd</Description>
+  </AppointmentDTO>
+</ArrayOfAppointmentDTO>

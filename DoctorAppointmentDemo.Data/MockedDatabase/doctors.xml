@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ArrayOfDoctor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Doctor>
+    <Id>1</Id>
+    <CreatedAt>2025-11-26T19:27:43.4598344+02:00</CreatedAt>
+    <UpdatedAt>0001-01-01T00:00:00</UpdatedAt>
+    <Name>Олег</Name>
+    <Surname>Шытов</Surname>
+    <Phone>380931602622</Phone>
+    <Email>ankelkoss@gmail.com</Email>
+    <DoctorType>Dentist</DoctorType>
+    <Experience>20</Experience>
+    <Salary>2000</Salary>
+  </Doctor>
+</ArrayOfDoctor>

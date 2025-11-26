@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ArrayOfPatient xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Patient>
+    <Id>1</Id>
+    <CreatedAt>2025-11-26T19:28:44.8817536+02:00</CreatedAt>
+    <UpdatedAt>0001-01-01T00:00:00</UpdatedAt>
+    <Name>Тарас</Name>
+    <Surname>Шевченко</Surname>
+    <Phone>380670098139</Phone>
+    <Email>taras.hevchenko@gmail.com</Email>
+    <IllnessType>DentalDisease</IllnessType>
+    <AdditionalInfo>sdfsfsfsdf</AdditionalInfo>
+    <Address>fsdfsfsdf</Address>
+  </Patient>
+</ArrayOfPatient>
