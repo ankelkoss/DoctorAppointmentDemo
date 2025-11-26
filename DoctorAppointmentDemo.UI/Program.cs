@@ -1,7 +1,8 @@
-﻿using System.Text;
-using DoctorAppointmentDemo.Data.Configuration;
+﻿using DoctorAppointmentDemo.Data.Configuration;
 using DoctorAppointmentDemo.Domain.Enums;
+using DoctorAppointmentDemo.UI.Helpers;
 using Spectre.Console;
+using System.Text;
 
 namespace DoctorAppointmentDemo.UI
 {
@@ -26,21 +27,43 @@ namespace DoctorAppointmentDemo.UI
                 File.Delete(tmpPath);
             }
         }
+
+        public static StorageTypeEnum SelectDatabase()
+        {
+            AnsiConsole.Clear();
+            AnsiConsole.MarkupLine("[bold cyan]DoctorAppointmentDemo[/]");
+            AnsiConsole.WriteLine();
+
+            return AnsiConsole.Prompt(
+                new SelectionPrompt<StorageTypeEnum>()
+                    .Title("Выберите [red]тип базы данных для сохранения информации[/]:")
+                    .UseConverter(item => item switch
+                    {
+                        StorageTypeEnum.Json => "Json file",
+                        StorageTypeEnum.Xml => "Xml file",
+
+                        _ => item.ToString()
+                    })
+                    .AddChoices(Enum.GetValues<StorageTypeEnum>())
+            );
+        }
+
         public static void Main()
         {
             Console.OutputEncoding = Encoding.UTF8;
             Console.InputEncoding = Encoding.UTF8;
+            
+            DelLocFile();
+            var exit = false;
 
             StartEffect.Matrix();
             StartEffect.Banner();
 
-            var doctorAppointment = new DoctorAppointment();
-            var patientAppointment = new PatientAppointment();
-            var appAppointment = new AppAppointment();
+            var dbType = SelectDatabase();
 
-            DelLocFile();
-
-            var exit = false;
+            var doctorAppointment = new DoctorAppointment(dbType);
+            var patientAppointment = new PatientAppointment(dbType);
+            var appAppointment = new AppAppointment(dbType);
 
             while (!exit)
             {
