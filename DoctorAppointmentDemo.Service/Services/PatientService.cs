@@ -1,7 +1,6 @@
 ﻿using DoctorAppointmentDemo.Data.Interfaces;
-using DoctorAppointmentDemo.Data.Repositories;
-using DoctorAppointmentDemo.Service.Interfaces;
 using DoctorAppointmentDemo.Domain.Entities;
+using DoctorAppointmentDemo.Service.Interfaces;
 
 namespace DoctorAppointmentDemo.Service.Services
 {
@@ -9,9 +8,9 @@ namespace DoctorAppointmentDemo.Service.Services
     {
         private readonly IPatientRepository _patientRepository;
 
-        public PatientService()
+        public PatientService(IPatientRepository patientRepository)
         {
-            _patientRepository = new PatientRepository();
+            _patientRepository = patientRepository;
         }
         public Patient Create(Patient patient)
         {
